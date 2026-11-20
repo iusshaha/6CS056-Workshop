@@ -1,32 +1,25 @@
+@extends('layouts.app')
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create Student</title>
-</head>
-<body>
+@section('title', 'Create Student')
+
+@section('content')
+
     <h1>Create Student</h1>
 
-    @if($errors->any())
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+    <form action="{{ route('students.store') }}" method="POST">
 
-    <form action="/students" method="POST">
         @csrf
 
-        <p>Name: <input type="text" name="name" value="{{ old('name') }}"></p>
-        <p>Email: <input type="email" name="email" value="{{ old('email') }}"></p>
-        <p>Phone: <input type="text" name="phone" value="{{ old('phone') }}"></p>
-        <p>Address: <textarea name="address">{{ old('address') }}</textarea></p>
-        <p>Date of Birth: <input type="date" name="date_of_birth" value="{{ old('date_of_birth') }}"></p>
+        <x-students.form :student="new \App\Models\Student()" />
 
-        <button type="submit">Create Student</button>
+        <button type="submit" class="btn">
+            Create Student
+        </button>
+
+        <a href="{{ route('students.index') }}">
+            Cancel
+        </a>
+
     </form>
 
-    <a href="/students">Back to Students</a>
-</body>
-</html>
+@endsection

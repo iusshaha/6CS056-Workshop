@@ -1,26 +1,52 @@
+@extends('layouts.app')
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Course Details</title>
-</head>
-<body>
+@section('title', 'Course Details')
+
+@section('content')
+
     <h1>Course Details</h1>
 
-    @if(session('success'))
-        <p>{{ session('success') }}</p>
-    @endif
+    <p>
+        <strong>ID:</strong>
+        {{ $course->id }}
+    </p>
 
-    <p>ID: {{ $course->id }}</p>
-    <p>Name: {{ $course->name }}</p>
-    <p>Description: {{ $course->description }}</p>
-    <p>Duration: {{ $course->duration }} weeks</p>
-    <p>Fee: {{ $course->fee }}</p>
-    <p>Difficulty: {{ $course->difficulty }}</p>
-    <p>Active: {{ $course->is_active ? 'Yes' : 'No' }}</p>
+    <p>
+        <strong>Name:</strong>
+        {{ $course->name }}
+    </p>
 
-    <a href="/courses/{{ $course->id }}/edit">Edit Course</a>
-    <br>
-    <a href="/courses">Back to Courses</a>
-</body>
-</html>
+    <p>
+        <strong>Description:</strong>
+        {{ $course->description }}
+    </p>
+
+    <p>
+        <strong>Duration:</strong>
+        {{ $course->duration }} weeks
+    </p>
+
+    <p>
+        <strong>Fee:</strong>
+        {{ number_format($course->fee, 2) }}
+    </p>
+
+    <p>
+        <strong>Difficulty:</strong>
+        {{ $course->difficulty }}
+    </p>
+
+    <p>
+        <strong>Active:</strong>
+        {{ $course->is_active ? 'Yes' : 'No' }}
+    </p>
+
+    <a href="{{ route('courses.edit', $course) }}" class="btn">
+        Edit Course
+    </a>
+
+    <a href="{{ route('courses.index') }}">
+        Back to Courses
+    </a>
+
+@endsection
